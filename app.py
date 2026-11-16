@@ -68,6 +68,19 @@ async def fetch_family_data(case_id: str) -> dict:
     return data
 
 
+def family_identity(case_id: str, financial_health: dict) -> dict[str, str]:
+    household = financial_health.get("case", {}).get("household", [])
+    adult_names = [
+        person["first_name"]
+        for person in household
+        if person.get("role") != "child" and person.get("first_name")
+    ]
+    return {
+        "family_name": " & ".join(adult_names) or case_id,
+        "family_label": case_id.rsplit("-", 1)[-1].title(),
+    }
+
+
 @app.get("/api/case/{case_id}")
 async def get_island_map(case_id: str, refresh: bool = Query(default=False)):
     """Genera y cachea el mapa enriquecido de LifePath con psicología, simulador y perspectivas."""
@@ -142,8 +155,43 @@ async def get_island_map(case_id: str, refresh: bool = Query(default=False)):
     )
 
     result = json.loads(response.choices[0].message.content)
+    financial_health = raw_data["financial_health"]
+    financial_score = financial_health["score"]
+    narrative = financial_health.get("narrative", {})
+
+    result.update({
+        **family_identity(case_id, financial_health),
+        "score": financial_score["published_score"],
+        "score_band": financial_score["band"],
+        "score_message": financial_score.get("message", ""),
+        "pillars": financial_score["pillars"],
+        "protection_details": {
+            "emergency": narrative.get("protection_emergency_fund_short_observations", ""),
+            "life": narrative.get("protection_life_insurance_short_observations", ""),
+            "umbrella": narrative.get("protection_umbrella_short_observations", ""),
+        },
+        "top_moves": financial_score.get("top_moves", []),
+    })
     ISLAND_MAP_CACHE[case_id] = result
     return result
+
+
+@app.get("/api/cases")
+def list_cases():
+    """Returns the available case IDs and display names for the family selector."""
+    cases_dir = Path("cases")
+    available_cases = []
+    for case_path in sorted(cases_dir.iterdir()):
+        financial_health_path = case_path / "financial-health.json"
+        if not case_path.is_dir() or not financial_health_path.is_file():
+            continue
+
+        financial_health = json.loads(financial_health_path.read_text(encoding="utf-8"))
+        available_cases.append({
+            "id": case_path.name,
+            **family_identity(case_path.name, financial_health),
+        })
+    return available_cases
 
 
 class AskRequest(BaseModel):
@@ -202,7 +250,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/")
 def serve_frontend():
-    return FileResponse("static/index.html")
+    return FileResponse("static/islands.html")
 
 
 if __name__ == "__main__":
