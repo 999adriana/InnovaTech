@@ -104,6 +104,52 @@
   </section>
   <!-- ==================== MUNDO: AHORRO · FIN ==================== -->
   <!-- ==================== MUNDO: DEUDA · rama mundo-deuda · INICIO ====================
+  <section id="debtView" style="display:none;">
+    <div class="debt-head">
+      <div class="debt-kicker">Pilar 03 · Deuda</div>
+      <h2 class="debt-title">Gestión de obligaciones</h2>
+    </div>
+  
+    <!-- Indicadores de Salud Financiera -->
+    <div class="debt-health-dashboard">
+      <div class="health-card" id="card-dti">
+        <small>DEUDA / INGRESOS (DTI)</small>
+        <strong id="val-dti">13%</strong>
+        <span class="health-status" id="status-dti">Óptimo</span>
+      </div>
+      <div class="health-card" id="card-housing">
+        <small>VIVIENDA / INGRESOS</small>
+        <strong id="val-housing">15%</strong>
+        <span class="health-status" id="status-housing">Óptimo</span>
+      </div>
+      <div class="health-card neutral">
+        <small>PAGO MENSUAL TOTAL</small>
+        <strong id="val-monthly">$2,960</strong>
+      </div>
+    </div>
+  
+    <!-- Desglose Visual (Efecto 3D) -->
+    <h3 class="debt-section-title">Vuestro desglose</h3>
+    <div class="debt-breakdown-3d" id="debt-breakdown-container">
+      <!-- Se rellenará con JS -->
+    </div>
+  
+    <!-- El Problema Oculto (Elefante en la habitación) -->
+    <div class="debt-alert-box" id="toxic-debt-alert">
+      <div class="alert-content">
+        <span class="alert-icon">⚠️</span>
+        <div class="alert-text">
+          <h3>Atención: Fuga de capital</h3>
+          <p>Vuestra deuda total es muy manejable, pero la <strong>Tarjeta de Crédito (18%)</strong> os está costando $270 al año solo en intereses. Al ritmo actual (pagando $300/mes), tardaréis 12 años en liquidarla.</p>
+        </div>
+      </div>
+      <button id="btn-solve-debt" class="sav-primary">Ver la solución <span>✦</span></button>
+    </div>
+    
+    <!-- Contenedor para el confeti -->
+    <div id="confetti-container"></div>
+  </section>
+  
   <!-- ==================== MUNDO: DEUDA · FIN ==================== -->
   <!-- ==================== MUNDO: INVERSIONES · rama mundo-inversiones · INICIO ====================
   <!-- ==================== MUNDO: INVERSIONES · FIN ==================== -->
