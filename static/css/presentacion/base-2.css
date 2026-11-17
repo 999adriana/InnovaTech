@@ -1,0 +1,19 @@
+/* PRESENTACIÓN · estilos base (parte 2: textos de mundo, asistente, móvil). Copia exacta del original; el orden de carga importa. */
+#world .wk{font-size:12px;letter-spacing:.35em;text-transform:uppercase}
+#world h3{font-family:Anton;text-transform:uppercase;font-size:clamp(56px,9vw,150px);line-height:.9;margin:10px 0}
+#world .wq{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,3vw,40px);font-style:italic}
+#world .note{margin-top:18px;max-width:520px;font-size:14px;opacity:.9}
+#world button{margin-top:26px;border:0;cursor:pointer}
+#prog{margin-top:14px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;opacity:.85}
+/* assistant */
+#ai{position:fixed;right:26px;bottom:24px;z-index:50}
+#ai .pill{cursor:pointer;pointer-events:auto}
+#ai .wave{display:inline-flex;gap:2px;align-items:center;height:14px}
+#ai .wave i{width:2px;background:#1c1714;border-radius:2px;animation:wv 1s infinite ease-in-out}
+#ai .wave i:nth-child(2){animation-delay:.15s}#ai .wave i:nth-child(3){animation-delay:.3s}#ai .wave i:nth-child(4){animation-delay:.45s}
+@keyframes wv{0%,100%{height:4px}50%{height:14px}}
+#aipanel{display:none;position:absolute;right:0;bottom:54px;width:300px;padding:18px;color:#fff;font-size:14px;line-height:1.45}
+#aipanel .sug{margin-top:10px;font-size:12px;padding:8px 12px;border-radius:12px;background:rgba(255,255,255,.18)}
+@media (max-width:700px){#chap{display:none}.isl{width:150px}.isl .q{font-size:16px}#summary{top:12vh}}
+@media (prefers-reduced-motion:reduce){#hint i{animation:none}}
+
