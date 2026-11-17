@@ -1,5 +1,6 @@
 import json
 import os
+from math import isfinite
 from pathlib import Path
 from dotenv import load_dotenv
 from fastapi import FastAPI, Query
@@ -78,6 +79,143 @@ def family_identity(case_id: str, financial_health: dict) -> dict[str, str]:
     return {
         "family_name": " & ".join(adult_names) or case_id,
         "family_label": case_id.rsplit("-", 1)[-1].title(),
+    }
+
+
+def investment_data_for_ui(investment_analysis: dict) -> dict:
+    """Expose the investment figures needed by the interactive island."""
+    metrics = investment_analysis.get("key_metrics", {})
+    cash = metrics.get("facts", {}).get("cash", {}).get("accessibleCash", {})
+    target_analysis = metrics.get("targetAnalysis", {})
+    portfolio_analysis = metrics.get("portfolioAnalysis", {})
+    concentration = metrics.get("concentrationAndDiversification", {}).get("totals", {})
+    positions = investment_analysis.get("positions", [])
+    invested_total = concentration.get("investablePortfolioValue")
+    if invested_total is None:
+        invested_total = sum(float(position.get("value") or 0) for position in positions)
+
+    return {
+        "positions": positions,
+        "invested_total": invested_total,
+        "accessible_cash": cash,
+        "target_performance": target_analysis.get("performance", {}),
+        "portfolio_performance": portfolio_analysis.get("performance", {}),
+        "target_allocation_efc": target_analysis.get("assetAllocations", {}).get("assetAllocationsEFC", []),
+    }
+
+
+def _case_number(value, field: str) -> float:
+    try:
+        number = float(value)
+    except (TypeError, ValueError) as error:
+        raise ValueError(f"El dato financiero {field} no es numérico.") from error
+    if not isfinite(number):
+        raise ValueError(f"El dato financiero {field} no es finito.")
+    return number
+
+
+def savings_data_for_ui(financial_health: dict) -> dict:
+    cashflow = financial_health["key_metrics"]["cashflowStatement"]
+    income = _case_number(cashflow["inflows"]["total"], "ingresos anuales")
+    liquidity = financial_health["key_metrics"]["savingsAndExpenses"]["liquidityContext"]
+    cash_balance = _case_number(liquidity["emergencyFundInCash"], "efectivo accesible")
+    styles = {
+        "Taxes": ("taxes", "Impuestos", "Impuestos y retenciones del hogar.", "receipt", "#b98562"),
+        "Expenses": ("expenses", "Gastos esenciales", "Gastos cotidianos recogidos en el informe.", "bag", "#8fa88d"),
+        "Housing Expenses": ("housing", "Vivienda", "Hipoteca, impuestos y gastos de vivienda.", "home", "#d9b36c"),
+        "Debt Payments": ("debt", "Deudas", "Pagos de deuda registrados en el informe.", "wallet", "#c4a4b0"),
+        "Savings": ("saving", "Ahorro e inversión", "Aportaciones de ahorro registradas actualmente.", "plant", "#9da97a"),
+    }
+    categories = []
+    for index, item in enumerate(cashflow["outflows"]["items"]):
+        source_name = item["name"]
+        category_id, name, detail, icon, color = styles.get(
+            source_name,
+            (f"category-{index}", source_name, "Importe mensual del informe.", "spark", "#9da97a"),
+        )
+        annual_amount = _case_number(item["total"], f"salida anual: {source_name}")
+        categories.append({
+            "id": category_id,
+            "name": name,
+            "detail": detail,
+            "hint": f"Importe mensual registrado: ${annual_amount / 12:,.0f} al mes.",
+            "icon": icon,
+            "color": color,
+            "amount": annual_amount / 12,
+        })
+    return {
+        "currency": "USD",
+        "income": income / 12,
+        "cash_balance": cash_balance,
+        "categories": categories,
+    }
+
+
+def protection_rings_for_ui(financial_health: dict) -> dict:
+    protection = financial_health["key_metrics"]["protection"]
+
+    def ring(current, recommended, meter_label, current_note, recommended_note):
+        current_amount = _case_number(current, f"{meter_label}: cobertura actual")
+        recommended_amount = _case_number(recommended, f"{meter_label}: objetivo recomendado")
+        ratio = current_amount / recommended_amount if recommended_amount > 0 else 0
+        status = "healthy" if ratio >= 1 else "warning" if ratio >= 0.5 else "critical"
+        return {
+            "current": current_amount,
+            "recommended": recommended_amount,
+            "coverage_ratio": ratio,
+            "meter_label": meter_label,
+            "current_note": current_note,
+            "recommended_note": recommended_note,
+            "status": status,
+        }
+
+    emergency = protection["emergencyFund"]
+    emergency_current = emergency["cashAndExpensesOverview"]["cashReserves"]
+    emergency_target = emergency["recommendedEmergencyFundLevels"]
+    emergency_months = emergency_target["minimumMonthsRecommended"]
+
+    life = protection["lifeInsurance"]
+    life_basics = life["lifeInsuranceCoverageBasics"]
+    life_recommendations = life["lifeInsuranceCoverageRecommendations"]
+    life_current = sum(
+        _case_number(life_basics.get(key, 0), f"seguro de vida: {key}")
+        for key in ("lifeInsuranceAmountClient", "lifeInsuranceAmountCoClient")
+    )
+    life_recommended = sum(
+        _case_number(life_recommendations.get(key, 0), f"seguro de vida: {key}")
+        for key in ("clientMinRecommendedCoverage", "coClientMinRecommendedCoverage")
+    )
+
+    umbrella = protection["umbrellaInsurance"]
+    umbrella_details = umbrella["umbrellaCoverage"]
+    umbrella_current = (
+        _case_number(umbrella_details["umbrellaCoverageAmount"], "responsabilidad civil")
+        if umbrella_details["hasUmbrellaPolicy"] else 0
+    )
+    umbrella_recommended = umbrella["coverageRecommendationsAndAnalysis"]["umbrellaMinRecommendedCoverage"]
+
+    return {
+        "emergency": ring(
+            emergency_current,
+            emergency_target["minimumAmountAdjustedAfterShortTermCashNeeds"],
+            "Colchón frente al objetivo mínimo",
+            "Efectivo accesible actual según el informe.",
+            f"Mínimo recomendado: {emergency_months} meses, más necesidades de corto plazo.",
+        ),
+        "life": ring(
+            life_current,
+            life_recommended,
+            "Cobertura de vida frente al mínimo recomendado",
+            "Suma de las coberturas de vida registradas.",
+            "Mínimo recomendado combinado para los adultos.",
+        ),
+        "umbrella": ring(
+            umbrella_current,
+            umbrella_recommended,
+            "Responsabilidad civil frente al mínimo recomendado",
+            "Cobertura registrada." if umbrella_details["hasUmbrellaPolicy"] else "El informe no registra una póliza.",
+            "Mínimo recomendado según el informe.",
+        ),
     }
 
 
@@ -165,11 +303,14 @@ async def get_island_map(case_id: str, refresh: bool = Query(default=False)):
         "score_band": financial_score["band"],
         "score_message": financial_score.get("message", ""),
         "pillars": financial_score["pillars"],
+        "savings_data": savings_data_for_ui(financial_health),
+        "protection_rings": protection_rings_for_ui(financial_health),
         "protection_details": {
             "emergency": narrative.get("protection_emergency_fund_short_observations", ""),
             "life": narrative.get("protection_life_insurance_short_observations", ""),
             "umbrella": narrative.get("protection_umbrella_short_observations", ""),
         },
+        "investment_data": investment_data_for_ui(raw_data["investment_analysis"]),
         "top_moves": financial_score.get("top_moves", []),
     })
     ISLAND_MAP_CACHE[case_id] = result
