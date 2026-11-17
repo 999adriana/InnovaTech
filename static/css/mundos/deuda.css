@@ -1,2 +1,94 @@
 /* MUNDO DEUDA · estilos (rama mundo-deuda). Vacío por ahora. */
+#debtView {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+  color: #fff;
+  padding-top: 4vh;
+}
+.debt-head { margin-bottom: 24px; }
+.debt-kicker { font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: #e8c58e; }
+.debt-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(30px, 4vw, 48px); line-height: 1; }
+
+/* Indicadores de salud */
+.debt-health-dashboard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.health-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 16px;
+  text-align: center;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.health-card small { display: block; font-size: 10px; letter-spacing: 0.1em; opacity: 0.7; }
+.health-card strong { display: block; font-family: Anton, sans-serif; font-size: 36px; margin: 8px 0; }
+.health-card .health-status { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* Estados (Verde y Rojo) */
+.health-card.good { border-color: #39bd79; box-shadow: 0 0 15px rgba(57, 189, 121, 0.15); }
+.health-card.good strong, .health-card.good .health-status { color: #39bd79; }
+.health-card.bad { border-color: #df6259; box-shadow: 0 0 15px rgba(223, 98, 89, 0.25); }
+.health-card.bad strong, .health-card.bad .health-status { color: #df6259; }
+
+/* Desglose 3D */
+.debt-section-title { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; opacity: 0.8;}
+.debt-breakdown-3d {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+.debt-item-3d {
+  flex: 1;
+  background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(0,0,0,0.2));
+  border-radius: 12px;
+  padding: 16px;
+  border-top: 1px solid rgba(255,255,255,0.3);
+  border-left: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 4px 8px 16px rgba(0,0,0,0.4), inset -2px -2px 6px rgba(0,0,0,0.2);
+  transform: perspective(500px) rotateX(5deg);
+  transition: transform 0.3s;
+}
+.debt-item-3d:hover { transform: perspective(500px) rotateX(0deg) translateY(-4px); }
+.debt-item-3d h4 { font-size: 14px; margin-bottom: 4px; color: #f2ead9; }
+.debt-item-3d .amount { font-family: Anton, sans-serif; font-size: 24px; color: #fff; }
+
+/* Alerta de problema */
+.debt-alert-box {
+  background: rgba(223, 98, 89, 0.12);
+  border: 1px solid rgba(223, 98, 89, 0.4);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.alert-content { display: flex; gap: 16px; align-items: center; }
+.alert-icon { font-size: 32px; }
+.alert-text h3 { font-family: 'Cormorant Garamond', serif; font-size: 26px; color: #ffb6a9; margin-bottom: 4px; }
+.alert-text p { font-size: 13px; max-width: 500px; opacity: 0.9; line-height: 1.5; }
+.debt-alert-box.solved {
+  background: rgba(57, 189, 121, 0.15);
+  border-color: #39bd79;
+}
+
+/* Confeti (suave y dorado) */
+#confetti-container { position: fixed; inset: 0; pointer-events: none; z-index: 100; overflow: hidden; }
+.confetti {
+  position: absolute;
+  width: 8px; height: 16px;
+  background: #E8B86A;
+  opacity: 0;
+  animation: fall linear forwards;
+}
+@keyframes fall {
+  0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
 
