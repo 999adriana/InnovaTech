@@ -1,29 +1,55 @@
+import asyncio
 import json
 import os
 from math import isfinite
 from pathlib import Path
 from dotenv import load_dotenv
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, HTTPException, Query
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from mcp import ClientSession
 from mcp.client.streamable_http import create_mcp_http_client, streamable_http_client
-from openai import OpenAI
+from openai import OpenAI, OpenAIError, Timeout
 import uvicorn
 
-load_dotenv()
+BASE_DIR = Path(__file__).resolve().parent
+load_dotenv(BASE_DIR / ".env")
 
 app = FastAPI(title="LifePath - Sherpas Hackathon")
 
+llm_proxy_url = os.getenv("LLM_PROXY_URL")
+team_key = os.getenv("TEAM_KEY")
+missing_llm_settings = [
+    name for name, value in (("LLM_PROXY_URL", llm_proxy_url), ("TEAM_KEY", team_key))
+    if not value
+]
+if missing_llm_settings:
+    raise RuntimeError(
+        f"Falta configurar {', '.join(missing_llm_settings)} en el entorno o en el archivo .env."
+    )
+
 llm = OpenAI(
-    base_url=f"{os.environ['LLM_PROXY_URL'].rstrip('/')}/v1",
-    api_key=os.environ["TEAM_KEY"]
+    base_url=f"{llm_proxy_url.rstrip('/')}/v1",
+    api_key=team_key,
+    timeout=45.0,
+    max_retries=0,
 )
 
 # Caché en memoria para respuestas instantáneas en la demo (0 ms tras la primera carga)
 RAW_DATA_CACHE: dict[str, dict] = {}
 ISLAND_MAP_CACHE: dict[str, dict] = {}
+
+
+async def request_llm(**kwargs):
+    try:
+        return await asyncio.to_thread(llm.chat.completions.create, **kwargs)
+    except OpenAIError as error:
+        print(f"[ERROR] Falló el servicio de IA ({type(error).__name__}).")
+        raise HTTPException(
+            status_code=502,
+            detail="El servicio de IA no está disponible. Revisa TEAM_KEY, LLM_PROXY_URL y la conexión.",
+        ) from error
 
 
 async def fetch_family_data(case_id: str) -> dict:
@@ -35,7 +61,10 @@ async def fetch_family_data(case_id: str) -> dict:
 
     # 1. Intento vía servidor MCP
     try:
-        http = create_mcp_http_client(headers={"Authorization": f"Bearer {os.environ['MCP_TOKEN']}"})
+        http = create_mcp_http_client(
+            headers={"Authorization": f"Bearer {os.environ['MCP_TOKEN']}"},
+            timeout=Timeout(10.0),
+        )
         async with streamable_http_client(os.environ["MCP_URL"], http_client=http) as (read, write, *_):
             async with ClientSession(read, write) as mcp:
                 await mcp.initialize()
@@ -51,7 +80,7 @@ async def fetch_family_data(case_id: str) -> dict:
                     pass
     except Exception as e:
         print(f"[INFO] Usando respaldo local cases/ para {case_id} (MCP: {e})")
-        base_path = Path("cases") / case_id
+        base_path = BASE_DIR / "cases" / case_id
         fh_file = base_path / "financial-health.json"
         ia_file = base_path / "investment-analysis.json"
         if fh_file.exists():
@@ -61,7 +90,7 @@ async def fetch_family_data(case_id: str) -> dict:
 
     # 2. Garantizar lectura de persona.md desde disco si MCP no lo devolvió
     if not data["persona"]:
-        persona_file = Path("cases") / case_id / "persona.md"
+        persona_file = BASE_DIR / "cases" / case_id / "persona.md"
         if persona_file.exists():
             data["persona"] = persona_file.read_text(encoding="utf-8")
 
@@ -283,7 +312,7 @@ async def get_island_map(case_id: str, refresh: bool = Query(default=False)):
 
     user_payload = json.dumps(raw_data, ensure_ascii=False)[:32000]
 
-    response = llm.chat.completions.create(
+    response = await request_llm(
         model="gpt-5-mini",
         response_format={"type": "json_object"},
         messages=[
@@ -292,7 +321,15 @@ async def get_island_map(case_id: str, refresh: bool = Query(default=False)):
         ]
     )
 
-    result = json.loads(response.choices[0].message.content)
+    if not response.choices or not response.choices[0].message.content:
+        raise HTTPException(status_code=502, detail="El servicio de IA devolvió una respuesta vacía.")
+    try:
+        result = json.loads(response.choices[0].message.content)
+    except json.JSONDecodeError as error:
+        raise HTTPException(status_code=502, detail="El servicio de IA devolvió una respuesta no válida.") from error
+    if not isinstance(result, dict):
+        raise HTTPException(status_code=502, detail="El servicio de IA devolvió un mapa con formato no válido.")
+
     financial_health = raw_data["financial_health"]
     financial_score = financial_health["score"]
     narrative = financial_health.get("narrative", {})
@@ -320,7 +357,7 @@ async def get_island_map(case_id: str, refresh: bool = Query(default=False)):
 @app.get("/api/cases")
 def list_cases():
     """Returns the available case IDs and display names for the family selector."""
-    cases_dir = Path("cases")
+    cases_dir = BASE_DIR / "cases"
     available_cases = []
     for case_path in sorted(cases_dir.iterdir()):
         financial_health_path = case_path / "financial-health.json"
@@ -351,7 +388,7 @@ async def ask_island_question(req: AskRequest):
         if req.member_perspective else ""
     )
 
-    response = llm.chat.completions.create(
+    response = await request_llm(
         model="gpt-5-mini",
         messages=[
             {
@@ -366,7 +403,10 @@ async def ask_island_question(req: AskRequest):
             {"role": "user", "content": req.question}
         ]
     )
-    return {"answer": response.choices[0].message.content}
+    answer = response.choices[0].message.content
+    if not answer:
+        raise HTTPException(status_code=502, detail="El servicio de IA devolvió una respuesta vacía.")
+    return {"answer": answer}
 
 
 @app.post("/api/prewarm")
@@ -385,13 +425,12 @@ async def prewarm_all_cases():
     return {"status": "ok", "cached_cases": loaded}
 
 
-os.makedirs("static", exist_ok=True)
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory=BASE_DIR / "static"), name="static")
 
 
 @app.get("/")
 def serve_frontend():
-    return FileResponse("static/islands.html")
+    return FileResponse(BASE_DIR / "static" / "islands.html")
 
 
 if __name__ == "__main__":

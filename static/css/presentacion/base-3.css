@@ -1,0 +1,7 @@
+/* PRESENTACIÓN · estilos base (parte 3: barra superior en móvil). Copia exacta del original; el orden de carga importa. */
+@media(max-width:600px){
+ #topbar{left:12px;right:12px;gap:8px}
+ #case-select{max-width:175px!important;font-size:10px}
+ #data-status{font-size:9px;padding:8px 10px}
+}
+

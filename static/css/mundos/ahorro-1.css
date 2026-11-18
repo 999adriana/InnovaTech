@@ -1,0 +1,43 @@
+/* MUNDO AHORRO · estilos (parte 1). Copia exacta del original; el orden de carga importa. */
+#world.savings-mode{align-items:flex-start;padding-top:4vh}
+#world.savings-mode .world-inner{max-height:92vh}
+#world.savings-mode #genericWorld{display:none}
+#savingsView{display:none;max-width:1000px;margin:30px auto 0}
+.sav-intro{max-width:760px;margin:0 auto 42px;text-align:center}
+.sav-eyebrow{font-size:11px;letter-spacing:.28em;text-transform:uppercase;opacity:.75}
+.sav-income{font-family:Anton,sans-serif;font-size:clamp(64px,12vw,132px);line-height:1;margin:16px 0 8px;color:#fff}
+.sav-caption{font-family:'Cormorant Garamond',serif;font-size:clamp(21px,3vw,30px);font-style:italic}
+.sav-period{display:inline-block;margin-top:18px;padding:8px 14px;border:1px solid rgba(255,255,255,.35);border-radius:999px;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.sav-scrollhint{margin-top:38px;font-size:10px;letter-spacing:.22em;text-transform:uppercase;opacity:.8}
+.sav-section{padding:34px 0;border-top:1px solid rgba(255,255,255,.28)}
+.sav-section h4{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,48px);font-weight:500;margin-bottom:8px}
+.sav-section .sub{font-size:13px;opacity:.75;margin-bottom:24px}
+.sav-overview{margin:28px auto 0;max-width:760px;padding:20px 22px 18px;border:1px solid rgba(255,255,255,.24);border-radius:24px;background:rgba(255,255,255,.09);backdrop-filter:blur(12px);text-align:left}
+.sav-overview-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:14px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.86}
+.sav-overview-head strong{font-family:Anton,sans-serif;font-size:22px;letter-spacing:0;font-weight:400;white-space:nowrap}
+.sav-segments{height:18px;display:flex;overflow:hidden;border-radius:99px;background:rgba(255,255,255,.15);box-shadow:inset 0 1px 3px rgba(0,0,0,.2)}
+.sav-segments span{height:100%;min-width:2px;transition:width .7s ease}
+.sav-legend{display:flex;flex-wrap:wrap;gap:9px 16px;margin-top:14px}
+.sav-legend span{display:inline-flex;align-items:center;gap:6px;font-size:10px;opacity:.82}
+.sav-legend i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.sav-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.sav-card{position:relative;overflow:hidden;padding:18px 20px 17px;border-radius:20px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(12px);min-height:148px}
+.sav-card:after{content:'';position:absolute;width:110px;height:110px;border-radius:50%;right:-38px;top:-42px;background:var(--card-tint);opacity:.11;pointer-events:none}
+.sav-card .top{display:flex;justify-content:space-between;gap:12px;align-items:center;font-size:13px;position:relative;z-index:1}
+.sav-card .cat-label{display:flex;align-items:center;gap:11px;min-width:0}
+.sav-card .cat-label span{line-height:1.2}
+.sav-card .cat-icon{width:44px;height:44px;flex:none;display:grid;place-items:center;border-radius:15px;background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.17)}
+.sav-card .cat-icon svg{width:34px;height:34px;overflow:visible}
+.sav-card strong{font-family:Anton,sans-serif;font-size:clamp(23px,3vw,32px);font-weight:400;white-space:nowrap}
+.sav-card .sav-percent{font-size:10px;letter-spacing:.12em;text-transform:uppercase;opacity:.78;margin:10px 0 0 55px}
+
+.sav-track{height:7px;border-radius:9px;background:rgba(255,255,255,.18);overflow:hidden;margin-top:14px}
+.sav-fill{height:100%;border-radius:9px}
+.sav-card small{display:block;margin-top:8px;font-size:11px;opacity:.72}
+.sav-total{display:flex;justify-content:space-between;gap:16px;margin-top:18px;padding:16px 2px;border-bottom:1px solid rgba(255,255,255,.3);font-size:13px}
+.sav-total strong{font-family:Anton;font-size:23px;font-weight:400}
+.sav-insight{margin-top:26px;padding:22px;border-radius:20px;background:rgba(18,30,28,.38);border:1px solid rgba(255,255,255,.24)}
+.sav-insight b{display:block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:9px;color:#f2d7a2}
+.sav-insight p{font-family:'Cormorant Garamond',serif;font-size:23px;line-height:1.25}
+.sav-disclaimer{margin-top:18px;font-size:10px;line-height:1.5;opacity:.62}
+@media(max-width:700px){#world{padding:2vh 5vw}#world .world-inner{max-height:96vh}.sav-grid{grid-template-columns:1fr}.sav-card{padding:16px}.sav-section{padding:26px 0}.sav-intro{margin-bottom:30px}.sav-overview{padding:16px}.sav-legend{gap:8px 12px}.sav-card{min-height:136px}}

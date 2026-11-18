@@ -660,8 +660,58 @@ em.na{font-style:normal;font-weight:400;opacity:.5}
 #covtip .row{font-size:13px;line-height:1.45}
 #covtip .row span{opacity:.6}
 </style>
+<style>
+#world #back{position:fixed;left:24px;bottom:20px;top:auto;z-index:80;margin:0;padding:12px 18px;background:rgba(255,255,255,.94);color:#1c1714;font:600 11px Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 8px 28px rgba(0,0,0,.24)}
+#world.savings-mode #back,#world.protection-mode #back,#world.investment-mode #back,#world.retirement-mode #back{position:fixed;left:24px;bottom:20px;top:auto;z-index:80;margin:0}
+#world #back:hover{background:#fff;transform:translateY(-2px)}
+#world #back:focus-visible,#retirementView button:focus-visible{outline:2px solid #f2d7a2;outline-offset:3px}
+#world.retirement-mode{align-items:stretch;padding:0;background:radial-gradient(ellipse at 75% 5%,rgba(79,143,192,.35),transparent 44%),linear-gradient(145deg,rgba(20,35,48,.98),rgba(22,27,32,.98))!important}
+#world.retirement-mode .world-inner{width:100%;height:100%;max-height:100vh;overflow-y:auto;padding:3vh 4vw 94px;display:flex;align-items:stretch}
+#world.retirement-mode #genericWorld{display:none}
+#world.retirement-mode #prog{display:none}
+#world.retirement-mode #retirementView{display:flex!important;flex-direction:column;gap:18px;width:100%;max-width:1220px;min-height:100%;margin:0 auto}
+#retirementView{display:none;color:#f8f6f0}
+.ret-head{display:flex;flex:none;justify-content:space-between;align-items:flex-end;gap:24px;padding:8px 0 16px;border-bottom:1px solid rgba(255,255,255,.2)}
+.ret-kicker,.ret-panel-kicker{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#b9d8ec}
+.ret-head h2{max-width:780px;margin:8px 0;font:500 clamp(30px,4vw,54px)/1.02 'Cormorant Garamond',serif}
+.ret-head p{max-width:700px;color:rgba(255,255,255,.76);font-size:13px;line-height:1.55}
+.ret-count{min-width:76px;color:#d4e5ef;font:400 18px Anton,sans-serif;letter-spacing:.08em;text-align:right}
+.ret-count small{display:block;margin-top:5px;color:rgba(255,255,255,.6);font:500 9px Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase}
+.ret-tabs{display:flex;flex:none;gap:7px;overflow-x:auto;padding:2px 0 6px;scrollbar-width:thin}
+#world.retirement-mode .ret-tabs button,#world.retirement-mode .ret-footer button{margin:0}
+.ret-tabs button,.ret-footer button{flex:none;border:1px solid rgba(255,255,255,.2);border-radius:999px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.76);font:600 10px Inter,sans-serif;letter-spacing:.07em;padding:11px 15px;cursor:pointer;transition:background .2s,color .2s,transform .2s}
+.ret-tabs button[aria-selected="true"]{background:#e8f1f5;color:#1c2a32;border-color:#e8f1f5}
+.ret-tabs button:hover,.ret-footer button:not(:disabled):hover{transform:translateY(-1px);background:rgba(255,255,255,.18);color:#fff}
+.ret-tabs button[aria-selected="true"]:hover{background:#fff;color:#1c2a32}
+.ret-panel{flex:none;min-height:350px;padding:clamp(20px,3vw,34px);border:1px solid rgba(255,255,255,.18);border-radius:24px;background:linear-gradient(135deg,rgba(255,255,255,.11),rgba(255,255,255,.045));box-shadow:0 18px 55px rgba(0,0,0,.16)}
+.ret-panel[hidden]{display:none}
+#world.retirement-mode .ret-panel h3{margin:8px 0 9px;font-family:'Cormorant Garamond',serif;font-size:clamp(27px,3vw,40px);font-weight:500;line-height:1.05;text-transform:none}
+.ret-lead{max-width:780px;color:rgba(255,255,255,.76);font-size:13px;line-height:1.65}
+.ret-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin-top:24px}
+.ret-card{position:relative;overflow:hidden;padding:18px;border:1px solid rgba(255,255,255,.16);border-radius:18px;background:rgba(7,20,30,.22)}
+.ret-card:before{content:attr(data-step);display:block;margin-bottom:14px;color:#c5dfed;font:400 21px Anton,sans-serif;letter-spacing:.08em}
+.ret-card h4{margin-bottom:7px;font:500 21px 'Cormorant Garamond',serif}
+.ret-card p{color:rgba(255,255,255,.72);font-size:12px;line-height:1.6}
+.ret-callout{margin-top:16px;padding:15px 18px;border-left:3px solid #a8d1e8;border-radius:4px 14px 14px 4px;background:rgba(168,209,232,.1);color:rgba(255,255,255,.82);font-size:12px;line-height:1.6}
+.ret-goal-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:22px}
+.ret-goal{padding:16px 18px;border-radius:16px;background:rgba(255,255,255,.075);border:1px solid rgba(255,255,255,.13)}
+.ret-goal b{display:block;margin-bottom:6px;color:#d8eaf4;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.ret-goal p{color:rgba(255,255,255,.72);font-size:12px;line-height:1.55}
+.ret-formula{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:17px;color:#f4ead5;font:500 17px 'Cormorant Garamond',serif}
+.ret-formula span{padding:8px 12px;border:1px solid rgba(255,255,255,.16);border-radius:12px;background:rgba(0,0,0,.12)}
+.ret-formula i{font-style:normal;color:#bdd8e7}
+.ret-checklist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:21px}
+.ret-check{display:flex;gap:11px;align-items:flex-start;padding:13px 15px;border-radius:14px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.78);font-size:12px;line-height:1.55}
+.ret-check span{display:grid;place-items:center;flex:none;width:22px;height:22px;border:1px solid rgba(185,216,236,.55);border-radius:50%;color:#d5e9f4;font-size:11px}
+.ret-footer{display:flex;flex:none;justify-content:space-between;align-items:center;gap:12px;margin-top:auto;padding:0 0 4px}
+.ret-footer p{color:rgba(255,255,255,.58);font-size:10px;letter-spacing:.12em;text-transform:uppercase;text-align:center}
+.ret-footer button:disabled{opacity:.35;cursor:not-allowed}
+@media(max-width:760px){#world #back,#world.savings-mode #back,#world.protection-mode #back,#world.investment-mode #back,#world.retirement-mode #back{left:12px;bottom:12px;padding:10px 12px;font-size:9px}#world.retirement-mode .world-inner{padding:16px 15px 78px}.ret-head{align-items:flex-start;flex-direction:column;gap:10px}.ret-count{text-align:left}.ret-count small{display:inline;margin-left:6px}.ret-tabs{margin-right:-4px}.ret-tabs button{padding:10px 12px;font-size:9px}.ret-panel{min-height:0;padding:19px 16px}.ret-cards,.ret-goal-grid,.ret-checklist{grid-template-columns:1fr;gap:9px}.ret-card{padding:14px}.ret-card:before{margin-bottom:8px}.ret-footer p{font-size:8px;letter-spacing:.06em}.ret-footer button{padding:10px 12px;font-size:9px}}
+@media(prefers-reduced-motion:reduce){.ret-tabs button,.ret-footer button{transition:none}}
+</style>
 </head>
 <body>
+<!-- ==================== PRESENTACIÓN · rama presentacion ==================== -->
 <div id="scroll"></div>
 <canvas id="gl"></canvas>
 <svg id="leaders"></svg>
@@ -704,7 +754,66 @@ em.na{font-style:normal;font-weight:400;opacity:.5}
 <div class="hud" id="choose"><h2 class="serif">¿Qué es lo que más os preocupa?</h2><p>Mantén pulsada una isla para cruzar su puente</p><div class="ai-quick" data-concern></div></div>
 
 <div id="world"><div class="world-inner">
-  <div id="genericWorld"><div class="wk" id="wk"></div><h3 id="wt"></h3><div class="wq" id="wq"></div><div class="note">Aquí empieza el mundo de este apartado (lo construye cada compañero con este mismo estilo). El camino sigue: al volver, las demás islas os esperan.</div></div>
+  <div id="genericWorld"><div class="wk" id="wk"></div><h3 id="wt"></h3><div class="wq" id="wq"></div><div class="note">El recorrido sigue: al volver, las demás islas os esperan.</div></div>
+  <section id="retirementView" aria-labelledby="retTitle">
+    <header class="ret-head">
+      <div><div class="ret-kicker">Mundo 01 · Jubilación y objetivos</div><h2 id="retTitle">Un futuro que también se planifica</h2><p>La jubilación no es una sola cifra: es coordinar cuándo queréis dar el paso, de dónde vendrán los ingresos y qué otros proyectos queréis cuidar.</p></div>
+      <div class="ret-count"><span id="retCount">01 / 04</span><small>vuestro recorrido</small></div>
+    </header>
+    <div class="ret-tabs" role="tablist" aria-label="Pantallas de jubilación y objetivos">
+      <button id="retTab0" type="button" role="tab" aria-controls="retPanel0" aria-selected="true" tabindex="0">01 · Horizonte</button>
+      <button id="retTab1" type="button" role="tab" aria-controls="retPanel1" aria-selected="false" tabindex="-1">02 · Ingresos</button>
+      <button id="retTab2" type="button" role="tab" aria-controls="retPanel2" aria-selected="false" tabindex="-1">03 · Objetivos</button>
+      <button id="retTab3" type="button" role="tab" aria-controls="retPanel3" aria-selected="false" tabindex="-1">04 · Próximos pasos</button>
+    </div>
+    <article class="ret-panel" id="retPanel0" role="tabpanel" aria-labelledby="retTab0" tabindex="0">
+      <div class="ret-panel-kicker">01 · Poner el horizonte en el mapa</div><h3>¿Cuándo empieza vuestro siguiente capítulo?</h3>
+      <p class="ret-lead">Una fecha objetivo ayuda a ordenar las decisiones, pero puede revisarse. Conviene hablar de lo que significa “jubilarse” para cada persona y de cuánto margen hay para cambiar de ritmo.</p>
+      <div class="ret-cards">
+        <div class="ret-card" data-step="A"><h4>Elegid un horizonte</h4><p>Anotad una edad o fecha tentativa para cada persona y comprobad las condiciones de acceso a sus prestaciones.</p></div>
+        <div class="ret-card" data-step="B"><h4>Imaginad el día a día</h4><p>Pensad en vivienda, salud, transporte, cuidados y actividades. El presupuesto futuro puede ser distinto al de hoy.</p></div>
+        <div class="ret-card" data-step="C"><h4>Dejad espacio para cambiar</h4><p>Comparad más de un escenario. Unos años más o menos de trabajo pueden cambiar tanto los ingresos como el tiempo de ahorro.</p></div>
+      </div>
+      <div class="ret-callout"><b>Para conversar:</b> ¿qué tendría que ser posible para que ambos sintierais que el plan es realista?</div>
+    </article>
+    <article class="ret-panel" id="retPanel1" role="tabpanel" aria-labelledby="retTab1" tabindex="0" hidden>
+      <div class="ret-panel-kicker">02 · Entender de dónde vendrá el dinero</div><h3>Varios ingresos, una visión completa</h3>
+      <p class="ret-lead">La seguridad no suele depender de una única fuente. Reunid importes, fechas de inicio, condiciones y posibles impuestos antes de compararlos con los gastos previstos.</p>
+      <div class="ret-cards">
+        <div class="ret-card" data-step="01"><h4>Pensiones públicas</h4><p>Consultad las estimaciones oficiales y revisad la edad de acceso, los requisitos y el momento en que empezarían los pagos.</p></div>
+        <div class="ret-card" data-step="02"><h4>Planes del trabajo</h4><p>Comprobad saldos, aportaciones, comisiones, condiciones de consolidación y si la empresa ofrece aportaciones asociadas.</p></div>
+        <div class="ret-card" data-step="03"><h4>Ahorro y patrimonio</h4><p>Identificad qué recursos podrían generar ingresos y cuáles deben seguir disponibles para emergencias u objetivos cercanos.</p></div>
+      </div>
+      <div class="ret-callout">Comparad ingresos y gastos por periodos: el resultado puede cambiar cuando una prestación empieza más tarde o termina otro ingreso.</div>
+    </article>
+    <article class="ret-panel" id="retPanel2" role="tabpanel" aria-labelledby="retTab2" tabindex="0" hidden>
+      <div class="ret-panel-kicker">03 · Dar forma a lo que queréis conseguir</div><h3>Los objetivos también necesitan un plan</h3>
+      <p class="ret-lead">Separar los proyectos por plazo ayuda a evitar que un gasto cercano compita sin querer con el ahorro destinado a muchos años después.</p>
+      <div class="ret-goal-grid">
+        <div class="ret-goal"><b>Próximos proyectos</b><p>Elegid una fecha y un coste aproximado para los planes que no pueden esperar demasiado.</p></div>
+        <div class="ret-goal"><b>Proyectos de medio plazo</b><p>Revisad cuánto podéis reservar periódicamente y qué pasaría si cambia la fecha o el coste.</p></div>
+        <div class="ret-goal"><b>Jubilación y largo plazo</b><p>Definid qué nivel de ingresos deseáis sostener y revisad cómo encaja con pensiones y ahorro disponible.</p></div>
+        <div class="ret-goal"><b>Prioridades compartidas</b><p>Hablad de qué es imprescindible, qué puede esperar y qué objetivos comparten los mismos recursos.</p></div>
+      </div>
+      <div class="ret-formula" aria-label="Una forma sencilla de estimar el ahorro mensual para un objetivo"><span>Coste estimado</span><i>−</i><span>ahorro ya reservado</span><i>÷</i><span>meses disponibles</span><i>=</i><span>referencia mensual</span></div>
+      <div class="ret-callout">Es una cuenta orientativa que no incluye rentabilidad, inflación ni imprevistos; usadla para conversar, no como promesa.</div>
+    </article>
+    <article class="ret-panel" id="retPanel3" role="tabpanel" aria-labelledby="retTab3" tabindex="0" hidden>
+      <div class="ret-panel-kicker">04 · Convertir preguntas en próximos pasos</div><h3>Un plan claro empieza por datos claros</h3>
+      <p class="ret-lead">Antes de decidir cuánto ahorrar o cuándo jubilarse, reunid la información y revisad los supuestos que sostienen el plan.</p>
+      <div class="ret-checklist">
+        <div class="ret-check"><span>1</span><div>Reunid estimaciones oficiales de pensión y extractos de los planes de empleo o ahorro.</div></div>
+        <div class="ret-check"><span>2</span><div>Preparad un presupuesto futuro que incluya vivienda, salud, impuestos y gastos que cambian con el tiempo.</div></div>
+        <div class="ret-check"><span>3</span><div>Para cada objetivo, anotad coste, fecha, ahorro existente y aportación que podéis sostener.</div></div>
+        <div class="ret-check"><span>4</span><div>Revisad el plan cuando cambien los ingresos, la familia, las prioridades o las reglas de las prestaciones.</div></div>
+      </div>
+      <div class="ret-callout">No hay una cifra universal ni un resultado garantizado. Para decisiones fiscales o de inversión, contrastad los datos con un profesional cualificado.</div>
+    </article>
+    <div class="ret-footer"><button id="retPrev" type="button" disabled>← Anterior</button><p id="retStatus" aria-live="polite">Pantalla 1 de 4</p><button id="retNext" type="button">Siguiente →</button></div>
+  </section>
+  <!-- ==================== MUNDO: LIQUIDEZ · rama mundo-liquidez · INICIO ==================== -->
+  <!-- ==================== MUNDO: LIQUIDEZ · FIN ==================== -->
+  <!-- ==================== MUNDO: AHORRO · rama mundo-ahorro · INICIO ==================== -->
   <section id="savingsView">
     <div class="sav-app-head">
       <div><div class="sav-eyebrow">Vuestro dinero · vuestro camino</div><div class="sav-step-title" id="savStepTitle">Primero, veamos cómo se mueve</div></div>
@@ -762,6 +871,12 @@ em.na{font-style:normal;font-weight:400;opacity:.5}
     </div>
     <div class="sav-disclaimer">Prototipo con datos ficticios. En una versión real, los importes se calcularían a partir de movimientos y cuentas que cada persona autorice. Las proyecciones son orientativas y no garantizan resultados.</div>
   </section>
+  <!-- ==================== MUNDO: AHORRO · FIN ==================== -->
+  <!-- ==================== MUNDO: DEUDA · rama mundo-deuda · INICIO ==================== -->
+  <!-- ==================== MUNDO: DEUDA · FIN ==================== -->
+  <!-- ==================== MUNDO: INVERSIONES · rama mundo-inversiones · INICIO ==================== -->
+  <!-- ==================== MUNDO: INVERSIONES · FIN ==================== -->
+  <!-- ==================== MUNDO: PROTECCIÓN · rama mundo-proteccion · INICIO ==================== -->
   <section id="protectionView">
     <div class="prot-head"><div><div class="prot-kicker" id="protection-family">Vuestra red de seguridad</div><div class="prot-title">Un escudo para proteger lo que habéis construido.</div></div><div class="prot-summary" id="protection-summary">Resumen del informe</div></div>
     <div class="prot-layout">
@@ -786,6 +901,7 @@ em.na{font-style:normal;font-weight:400;opacity:.5}
     <div class="prot-action-panel" id="protActions"><b>Lo que está en vuestras manos:</b> revisar los beneficiarios de las pólizas, pedir una valoración de necesidades de capital, comparar cotizaciones y comprobar qué cubren exactamente los seguros actuales. Son pasos para investigar, no una recomendación de contratar una póliza concreta.</div>
     <div class="prot-footer"><small id="protection-footer">Datos del informe · las cifras proceden del caso seleccionado.</small><button id="protActionToggle">Ver próximos pasos →</button></div>
   </section>
+  <!-- ==================== MUNDO: PROTECCIÓN · FIN ==================== -->
 
   <section id="investmentView" aria-label="Activos e inversiones">
     <div class="inv-head">
@@ -831,8 +947,9 @@ em.na{font-style:normal;font-weight:400;opacity:.5}
     </div>
     <div class="inv-footer"><span class="inv-page-count" id="invPageCount">01 / 04</span><div class="inv-dots" id="invDots" role="group" aria-label="Navegar sub-slides"></div></div>
   
-<button class="pill" id="back">← Volver a las islas</button><div id="prog"></div>
-</div></div>
+</div>
+<button class="pill" id="back" type="button" aria-label="Salir de la isla y volver al mapa">← Salir de la isla</button><div id="prog"></div>
+</div>
 
 <div id="ai"><div class="glass" id="aipanel">
   <div class="ai-head"><b>Vuestro asistente</b><span>Conoce vuestro plan entero</span><button id="aiclose" aria-label="Cerrar">×</button></div>
@@ -849,7 +966,7 @@ em.na{font-style:normal;font-weight:400;opacity:.5}
   <button type="button" class="dw-lbl dw-glass" id="dwLblM"></button><button type="button" class="dw-lbl dw-glass" id="dwLblV"></button><button type="button" class="dw-lbl dw-glass" id="dwLblL"></button>
   <div id="dwFlat"></div>
   <div id="dwMissing" class="dw-glass"></div>
-  <div class="dw-nav"><button class="dw-btn ghost" id="dwBack" type="button">← Volver a las islas</button><button class="dw-btn ghost" id="dwOverview" type="button">Vista general</button></div>
+  <div class="dw-nav"><button class="dw-btn ghost" id="dwBack" type="button">← Salir de la isla</button><button class="dw-btn ghost" id="dwOverview" type="button">Vista general</button></div>
   <aside id="dwPanel" class="dw-glass" aria-live="polite"><button id="dwClose" type="button" aria-label="Cerrar detalle">×</button><div id="dwBody"></div></aside>
   <div id="dwToast" class="dw-glass">Una deuda menos. Seguid así.</div>
 </section>
@@ -1833,6 +1950,14 @@ function applyCaseData(data,caseId){
  $('chip-next-move').title=firstMove?.action||'';
  selectProtection('emergency',false);
 }
+function readableApiError(error){
+ if(error instanceof TypeError)return 'No se pudo conectar con FastAPI. Inicia el servidor desde la raíz del proyecto.';
+ return error instanceof Error?error.message:'Error desconocido al cargar los datos.';
+}
+async function responseError(response){
+ const payload=await response.json().catch(()=>null);
+ return typeof payload?.detail==='string'?payload.detail:`Error HTTP ${response.status}.`;
+}
 let currentCaseId=null;
 async function loadCase(caseId){
  const status=$('data-status'),selector=$('case-select');
@@ -1843,13 +1968,14 @@ async function loadCase(caseId){
  document.querySelectorAll('.prot-orbit').forEach(button=>button.classList.remove('status-healthy','status-warning','status-critical'));
  try{
   const response=await fetch(`/api/case/${encodeURIComponent(caseId)}`);
-  if(!response.ok)throw new Error(`Error al cargar el caso (${response.status}).`);
+  if(!response.ok)throw new Error(await responseError(response));
   const data=await response.json();
   applyCaseData(data,caseId);
   status.textContent=`Mapa listo · ${data.family_label||data.family_name}`;
  }catch(error){
   if(currentCaseId)selector.value=currentCaseId;
-  status.textContent='No se pudieron cargar los datos del caso.';
+  status.textContent=readableApiError(error);
+  status.title=status.textContent;
   console.error(error);
  }finally{
   selector.disabled=false;
@@ -1860,7 +1986,7 @@ async function initializeCaseSelector(){
  selector.addEventListener('change',()=>loadCase(selector.value));
  try{
   const response=await fetch('/api/cases');
-  if(!response.ok)throw new Error(`Error al cargar las familias (${response.status}).`);
+  if(!response.ok)throw new Error(await responseError(response));
   const cases=await response.json();
   if(!Array.isArray(cases)||cases.length===0)throw new Error('La API no devolvió familias disponibles.');
   selector.replaceChildren(...cases.map(item=>new Option(`Familia ${item.family_label}`,item.id)));
@@ -1873,7 +1999,8 @@ async function initializeCaseSelector(){
   await loadCase(initialCase);
  }catch(error){
   selector.disabled=true;
-  $('data-status').textContent='No se pudo conectar con la API de casos.';
+  $('data-status').textContent=readableApiError(error);
+  $('data-status').title=$('data-status').textContent;
   console.error(error);
  }
 }
@@ -1893,7 +2020,35 @@ cards.forEach((c,i)=>{
 });
 addEventListener('pointerup',()=>{holding=-1;});
 $('aibtn').onclick=()=>{const p=$('aipanel');p.style.display=p.style.display==='block'?'none':'block';};
-$('back').onclick=()=>{$('world').style.display='none';$('world').classList.remove('savings-mode','protection-mode','investment-mode');$('world').classList.remove('open');mode='return';flyT=0;if(window.sfx)sfx.whoosh(.4);};
+$('back').onclick=()=>{$('world').style.display='none';$('world').classList.remove('savings-mode','protection-mode','investment-mode','retirement-mode');$('world').classList.remove('open');mode='return';flyT=0;if(window.sfx)sfx.whoosh(.4);};
+
+const retirementTabs=[...document.querySelectorAll('#retirementView [role="tab"]')];
+const retirementPanels=[...document.querySelectorAll('#retirementView [role="tabpanel"]')];
+function setRetirementScreen(index){
+ const active=Math.max(0,Math.min(index,retirementPanels.length-1));
+ retirementTabs.forEach((tab,i)=>{
+  const selected=i===active;
+  tab.setAttribute('aria-selected',String(selected));
+  tab.tabIndex=selected?0:-1;
+  retirementPanels[i].hidden=!selected;
+ });
+ $('retCount').textContent=`${String(active+1).padStart(2,'0')} / ${String(retirementPanels.length).padStart(2,'0')}`;
+ $('retStatus').textContent=`Pantalla ${active+1} de ${retirementPanels.length}`;
+ $('retPrev').disabled=active===0;
+ $('retNext').disabled=active===retirementPanels.length-1;
+}
+retirementTabs.forEach((tab,index)=>{
+ tab.addEventListener('click',()=>setRetirementScreen(index));
+ tab.addEventListener('keydown',event=>{
+  if(!['ArrowLeft','ArrowRight'].includes(event.key))return;
+  event.preventDefault();
+  const next=(index+(event.key==='ArrowRight'?1:-1)+retirementTabs.length)%retirementTabs.length;
+  retirementTabs[next].focus();
+  setRetirementScreen(next);
+ });
+});
+$('retPrev').addEventListener('click',()=>setRetirementScreen(retirementTabs.findIndex(tab=>tab.getAttribute('aria-selected')==='true')-1));
+$('retNext').addEventListener('click',()=>setRetirementScreen(retirementTabs.findIndex(tab=>tab.getAttribute('aria-selected')==='true')+1));
 
 // elegir un mundo: vuelo suave al umbral (se ven las demás islas al fondo); al deslizar hacia abajo se entra de lleno
 const flyFrom=V(0,0,0),flyLookFrom=V(0,0,0);let enterT=0,wheelAcc=0,touchY=null;
@@ -1915,10 +2070,11 @@ function leaveThreshold(){if(mode!=='threshold')return;hideEnter();mode='return'
 function openWorld(i){const pl=PILLARS[i];const w=$('world');w.style.display='flex';requestAnimationFrame(()=>w.classList.add('open'));
  w.style.background=`linear-gradient(180deg,rgba(0,0,0,0) 30%,${pl.css}ee 100%),radial-gradient(circle at 70% 30%,${pl.css}99,rgba(28,23,20,.92))`;
  $('wk').textContent=`Mundo ${String(i+1).padStart(2,'0')} · ${pl.short}`;$('wt').textContent=pl.name;$('wq').textContent=pl.q;
- const isSavings=pl.id==='sav';const isProtection=pl.id==='prot';const isInvestment=pl.id==='inv';
- w.classList.toggle('savings-mode',isSavings);w.classList.toggle('protection-mode',isProtection);w.classList.toggle('investment-mode',isInvestment);
- $('savingsView').style.display=isSavings?'flex':'none';$('protectionView').style.display=isProtection?'flex':'none';$('investmentView').style.display=isInvestment?'flex':'none';
- $('genericWorld').style.display=(isSavings||isProtection||isInvestment)?'none':'block';
+ const isRetirement=pl.id==='liq';const isSavings=pl.id==='sav';const isProtection=pl.id==='prot';const isInvestment=pl.id==='inv';
+ w.classList.toggle('retirement-mode',isRetirement);w.classList.toggle('savings-mode',isSavings);w.classList.toggle('protection-mode',isProtection);w.classList.toggle('investment-mode',isInvestment);
+ $('retirementView').style.display=isRetirement?'flex':'none';$('savingsView').style.display=isSavings?'flex':'none';$('protectionView').style.display=isProtection?'flex':'none';$('investmentView').style.display=isInvestment?'flex':'none';
+ $('genericWorld').style.display=(isRetirement||isSavings||isProtection||isInvestment)?'none':'block';
+ if(isRetirement)setRetirementScreen(0);
  w.querySelector('.world-inner').scrollTop=0;if(isInvestment)showInvestmentSlide(0);
  $('prog').textContent=`${visited.size} de 5 mundos recorridos`+(visited.size===5?' · informe completo':'');mode='world';}
 addEventListener('wheel',e=>{if(mode!=='threshold')return;wheelAcc+=e.deltaY;if(wheelAcc>90)enterWorld();else if(wheelAcc<-90)leaveThreshold();},{passive:true});
