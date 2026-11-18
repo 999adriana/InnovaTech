@@ -1,0 +1,104 @@
+{
+  "couple_perspectives": [
+    {
+      "custom_advice": "As a Growth investor, you value long-term upside but the household needs short-term protection first. Adapted to the psychological profile D4–D6 in persona.md: consider keeping retirement saving on track while allocating a portion of the $150,800 accessible cash to a one-time payoff of $6,800 on the 18% Chase card, then selectively add targeted life cover so growth plans stay intact.",
+      "focus_tag": "Growth and long-term goals",
+      "member_name": "Timothy"
+    },
+    {
+      "custom_advice": "As a more Moderate investor focused on stability, prioritize closing protection gaps that expose the children. Adapted to the psychological profile D4–D6 in persona.md: use part of the accessible cash to remove expensive revolving debt and then add life insurance coverage incrementally (for example the $235,000 move suggested) so the household risk profile is more secure before allocating large sums to non-protection goals.",
+      "focus_tag": "Security and family protection",
+      "member_name": "Melanie"
+    }
+  ],
+  "day3_widget": {
+    "message": "Consider transferring $6,800 from your accessible cash ($150,800) to the Chase credit card to clear the revolving limit and raise the published score from 60 to 62. You currently have about $60,222.50 above the emergency reserve to help fund this and next steps.",
+    "title": "Day 3 Reminder"
+  },
+  "family_label": "Weah",
+  "family_name": "Timothy & Melanie",
+  "headline": "Protect your family and stop costly interest now",
+  "islands": [
+    {
+      "bridge_status": "cracked",
+      "expert_metrics": "Chase CC balance $18,000 at 18% with monthly payment $300; projected payoff September 2039 at current payment. Top recommended move: pay $6,800 from cash to remove high revolving exposure; published score moves 60 → 62 and the card balance would be $11,200 after that payment.",
+      "first_step": "Transfer $6,800 from accessible cash to the Chase credit card to remove the revolving cap.",
+      "icon_type": "ahorros",
+      "id": "isla_1",
+      "simple_summary": "An $18,000 Chase credit-card balance at 18% is creating an expensive drag and a published-score cap. You have cash to act now and reduce this high-cost debt quickly.",
+      "status": "critical",
+      "suggested_questions": [
+        "Would you prefer a one-time $6,800 payment or a larger staged payoff?",
+        "Do you want to keep a specific cash buffer after the payment (e.g., the full emergency reserve)?"
+      ],
+      "title": "High-rate Card"
+    },
+    {
+      "bridge_status": "strained",
+      "expert_metrics": "Timothy life coverage $140,000 vs recommended minimum $750,000 (shortfall $610,000). Melanie life coverage $110,000 vs recommended minimum $600,000 (shortfall $490,000). Suggested move: add $235,000 of life cover to bring total to $485,000; after card paydown life cover must reach $491,800 to clear the mortality gate line.",
+      "first_step": "Get quotes and consider adding $235,000 of life cover for immediate improvement in protection.",
+      "icon_type": "proteccion",
+      "id": "isla_2",
+      "simple_summary": "Current life coverage falls far short of recommended levels for two incomes with young children. Closing this gap protects your household income and addresses the other published-score cap.",
+      "status": "warning",
+      "suggested_questions": [
+        "Do you prefer term or permanent cover for new life insurance?",
+        "Which of your incomes would you prioritize replacing first in coverage design?"
+      ],
+      "title": "Life Insurance"
+    },
+    {
+      "bridge_status": "strained",
+      "expert_metrics": "No umbrella policy in place; recommended minimum umbrella coverage $1,000,000. Report notes potential exposure up to net worth $695,500 and that $360,000 in liquid assets would be within reach in a claim.",
+      "first_step": "Request a quote for a $1,000,000 umbrella policy and compare annual premiums.",
+      "icon_type": "proteccion",
+      "id": "isla_3",
+      "simple_summary": "You have no umbrella liability policy, leaving up to $1,000,000 of recommended protection missing. A liability claim could reach your net worth and liquid savings.",
+      "status": "warning",
+      "suggested_questions": [
+        "Would you like a quote for $1M and $2M umbrella limits to compare cost and coverage?",
+        "Should umbrella coverage start once the card payoff or new life policies are in place?"
+      ],
+      "title": "Umbrella Gap"
+    },
+    {
+      "bridge_status": "strained",
+      "expert_metrics": "Planned home downpayment (2030) $135,061.06; planned mortgage amount $540,244.23 with monthly payment $3,594.26 (30 years at 7%). College funding still needed $113,508.60 total beyond current 529 balances; extra yearly saving needed for college (first year) $4,609.22. Accessible cash today $150,800; cash above emergency reserve $66,222.50; cash above reserve and near-term goals $60,222.50.",
+      "first_step": "Decide how much of the $60,222.50 cash above reserves to allocate after addressing the card and protection gaps—consider starting an annual education contribution of $4,609.22.",
+      "icon_type": "vivienda",
+      "id": "isla_4",
+      "simple_summary": "You plan a home purchase in 2030 and college for two children, but neither goal is fully funded. Your available spare cash can help, but it competes with protection and debt priorities.",
+      "status": "warning",
+      "suggested_questions": [
+        "Do you want to prioritize the 2030 home downpayment or start regular college contributions now?",
+        "Would you prefer automated yearly college deposits of $4,609.22 or lump contributions when convenient?"
+      ],
+      "title": "Home & College"
+    }
+  ],
+  "simulator": {
+    "action_label": "One-time payment to Chase credit card",
+    "impact_explanation": "Paying $6,800 from accessible cash toward the 18% Chase card removes the high revolving exposure that caps your published score. This move lifts the published score from 60 to 62, clears a major source of expensive interest, and still leaves your strong cash cushion to address life cover and other goals.",
+    "max_val": 18000,
+    "min_val": 0,
+    "recommended_val": 6800,
+    "score_boost": 2,
+    "step_val": 100,
+    "target_island_index": 0,
+    "unit": "$"
+  },
+  "welcome_intents": [
+    {
+      "label": "Pay down high-rate credit card",
+      "target_island_index": 0
+    },
+    {
+      "label": "Close life insurance gap",
+      "target_island_index": 1
+    },
+    {
+      "label": "Plan college and home funding",
+      "target_island_index": 3
+    }
+  ]
+}

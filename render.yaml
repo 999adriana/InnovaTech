@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: innovatech-lifepath
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: MCP_URL
+        sync: false
+      - key: MCP_TOKEN
+        sync: false
+      - key: LLM_PROXY_URL
+        sync: false
+      - key: TEAM_KEY
+        sync: false

@@ -1,0 +1,99 @@
+{
+  "couple_perspectives": [
+    {
+      "custom_advice": "As a D4–D6 style, prefer clear tradeoffs and stepwise actions: secure Ethan's $12,500 payment and the $6,000 vacation (total $18,500) as the immediate priority, cover the yearly shortfall of about $6,418, then direct new savings into tax-advantaged accounts (you can contribute up to $7,500 to a deductible traditional IRA and up to $4,400 to an HSA if eligible). Keep life, disability and umbrella cover in place.",
+      "focus_tag": "Protecting children and long-term independence",
+      "member_name": "Samantha"
+    }
+  ],
+  "day3_widget": {
+    "message": "Ethan's next college payment is $12,500 due August 2027. After setting aside the $18,500 of near-term goals, only $750 remains above the reserve—review cash flow and a plan to cover the $6,418 yearly shortfall.",
+    "title": "Day 3 Reminder"
+  },
+  "family_label": "Lewis",
+  "family_name": "Samantha",
+  "headline": "Balance college payments and long-term retirement gap",
+  "islands": [
+    {
+      "bridge_status": "cracked",
+      "expert_metrics": "Accessible cash $80,000; Months of essential expenses covered today before near-term goals 7.9 months; Months covered after near-term goals 6.1 months; Cash above the emergency reserve $19,250; Cash above the emergency reserve and near-term goals $750; Near-term goals: $6,000 vacation (next Jan 2027) and Ethan $12,500 (next Aug 2027); Net cash flow this year -$6,417.99.",
+      "first_step": "Set aside the $18,500 for near-term goals and cover the $6,418 yearly shortfall from new yearly saving or reallocated contributions.",
+      "icon_type": "ahorros",
+      "id": "isla_1",
+      "simple_summary": "Near-term college payments and an annual cash shortfall strain your liquid cushion. Only $750 sits above the reserve after setting aside near-term goals, so immediate action is needed.",
+      "status": "critical",
+      "suggested_questions": [
+        "Can we earmark $18,500 now for the vacation and Ethan's payment?",
+        "Would you prefer to cover the $6,418 shortfall from monthly adjustments or one-time reallocation?"
+      ],
+      "title": "Cash & College"
+    },
+    {
+      "bridge_status": "strained",
+      "expert_metrics": "Savings and investments run out at age 73; Yearly retirement spending need $153,671.62; Guaranteed income (Social Security) $38,336.15 per year (covers 25% of need); Yearly retirement spending shortfall from savings $115,335.47; Average yearly draw from savings in retirement $115,335.47; Average yearly draw as share of savings 12.2%; Retirement accounts balance 0 today.",
+      "first_step": "Open a deductible traditional IRA and consider contributing up to $7,500 this year while weighing college funding needs.",
+      "icon_type": "jubilacion",
+      "id": "isla_2",
+      "simple_summary": "Projected savings and investments run out at age 73, leaving a large retirement spending gap. Retirement saving is currently $0 in tax-advantaged accounts and competes with college funding.",
+      "status": "warning",
+      "suggested_questions": [
+        "Is a workplace 401(k) available to you? Confirm availability to shape options.",
+        "Would you prioritize IRA contributions now or fund college payments first?"
+      ],
+      "title": "Retirement Gap"
+    },
+    {
+      "bridge_status": "strained",
+      "expert_metrics": "Primary home value $900,000 (owned outright) currently shows no homeowners coverage; Porsche Cayenne value $80,000 shows no auto/home underlying cover; Umbrella liability insurance in place $2,000,000; Life insurance $2,000,000; Long-term disability coverage $150,000 with yearly premium $4,800 for DI and $2,400 premium for term life.",
+      "first_step": "Add homeowners insurance on the primary home to close the coverage gap (top move listed in the plan).",
+      "icon_type": "vivienda",
+      "id": "isla_3",
+      "simple_summary": "Your primary home ($900,000) and Porsche ($80,000) show as uninsured in records, creating a coverage gap despite an umbrella policy. Adding homeowners insurance is the top move to close that gap.",
+      "status": "critical",
+      "suggested_questions": [
+        "Can you confirm current homeowners and auto policy details to close the gap?",
+        "Would you like Sherpas to check quotes to add primary home coverage now?"
+      ],
+      "title": "Home Insurance"
+    },
+    {
+      "bridge_status": "strained",
+      "expert_metrics": "Taxable brokerage balance $300,000; VTI is 39% of investable assets; Technology 30.6% of equity exposure; US exposure 92.6%; Invested mix about 85% growth (target glide 80%); Top moves: reduce VTI to 25% by reallocating about $58,300, and move about $17,100 of the invested book to reduce growth to 80%.",
+      "first_step": "Reduce the single-name VTI concentration from 39% toward 25% by reallocating about $58,300 from that holding.",
+      "icon_type": "ahorros",
+      "id": "isla_4",
+      "simple_summary": "Invested assets show a high single-name and US/tech concentration that raises long-term risk. Rebalancing would modestly improve your investments pillar and reduce concentration.",
+      "status": "warning",
+      "suggested_questions": [
+        "Do you prefer a phased reallocation (small sales over time) to manage taxes?",
+        "Should we prioritize reducing VTI concentration or shifting the growth glide to 80% first?"
+      ],
+      "title": "Concentration Risk"
+    }
+  ],
+  "simulator": {
+    "action_label": "Extra yearly saving",
+    "impact_explanation": "Covering the yearly cash shortfall of about $6,418 removes the immediate negative net cash flow, preserves the $80,000 accessible cash cushion (7.9 months today) and prevents drawing down the thin $750 excess above the reserve and near-term goals.",
+    "max_val": 20000,
+    "min_val": 0,
+    "recommended_val": 6418,
+    "score_boost": 0,
+    "step_val": 100,
+    "target_island_index": 0,
+    "unit": "$/yr"
+  },
+  "welcome_intents": [
+    {
+      "label": "Cover Ethan's college payment",
+      "target_island_index": 0
+    },
+    {
+      "label": "Plan for retirement shortfall",
+      "target_island_index": 1
+    },
+    {
+      "label": "Close my home insurance gap",
+      "target_island_index": 2
+    }
+  ]
+}

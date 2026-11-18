@@ -1,0 +1,99 @@
+{
+  "couple_perspectives": [
+    {
+      "custom_advice": "You prioritize keeping near-term plans intact while preserving retirement progress. Start by separating the cash needed for January 2027 (home downpayment and vacation) from long‑term investments, keep capturing the full $7,000 401(k) match, and treat life and umbrella gaps as short, high‑impact fixes you can evaluate against the home purchase.",
+      "focus_tag": "Near-term security and long-term growth",
+      "member_name": "Michael"
+    }
+  ],
+  "day3_widget": {
+    "message": "You have $30,000 accessible cash (covers 3.2 months). Decide whether to set aside $113,300 for the January 2027 home purchase now, because counting that goal your months covered falls to 0.",
+    "title": "Day 3 reminder"
+  },
+  "family_label": "Carter",
+  "family_name": "Michael",
+  "headline": "Immediate cash shortfall before your January 2027 goals",
+  "islands": [
+    {
+      "bridge_status": "cracked",
+      "expert_metrics": "Accessible cash: $30,000; Months of essential expenses covered: 3.2 months (recommended 5–6 months = $46,530–$55,836); Cash target including near‑term goals: $163,330–$172,636; Months covered after setting aside near‑term goals: 0 months; Net cash flow this year: -$8,336/yr.",
+      "first_step": "Open a dedicated short‑term holding account and move the portion of cash you will use for the January 2027 home purchase into it today.",
+      "icon_type": "ahorros",
+      "id": "isla_1",
+      "simple_summary": "Your cash cushion is thin and a January 2027 home purchase will exhaust it. Prioritize separating near‑term cash from long‑term investments to avoid forced sales.",
+      "status": "critical",
+      "suggested_questions": [
+        "Which funds will you commit to the January 2027 home purchase now?",
+        "How many months do you want to hold as a minimum emergency cushion?"
+      ],
+      "title": "Emergency cash"
+    },
+    {
+      "bridge_status": "strained",
+      "expert_metrics": "Planned purchase value at 2027: $566,500; Planned downpayment held as cash: $113,300; Planned loan: $453,200 at 7.0% -> estimated monthly payment $3,015.15; Related one‑time closing costs and fees in 2027: $9,464.",
+      "first_step": "Estimate the mortgage payment impact on monthly cash flow and simulate keeping vs. delaying the purchase so you can compare the effect on emergency cash and retirement saving.",
+      "icon_type": "vivienda",
+      "id": "isla_2",
+      "simple_summary": "You plan to buy a home in January 2027 costing $550,000 with a planned downpayment hold of $113,300. That near‑term demand competes directly with your emergency reserve and retirement saving.",
+      "status": "warning",
+      "suggested_questions": [
+        "Are you willing to reduce the downpayment to preserve cash cushion?",
+        "Do you want to test delaying the purchase until your emergency reserve is rebuilt?"
+      ],
+      "title": "Home purchase"
+    },
+    {
+      "bridge_status": "cracked",
+      "expert_metrics": "Life insurance coverage: $180,000 (recommended client min: $900,000; shortfall: $720,000); Umbrella current coverage: $0 (recommended: $1,000,000); BMW 3 Series value $40,000 with loan $15,000 → equity $25,000; Credit card: $3,500 at 20% APR, $200/mo projected payoff July 2028.",
+      "first_step": "Get quotes for a $1M personal umbrella and reassess life insurance to narrow the $720,000 shortfall; then compare premiums to the cash plan for January 2027.",
+      "icon_type": "proteccion",
+      "id": "isla_3",
+      "simple_summary": "Life and liability protection are below recommended levels: your life cover is far short and you have no umbrella policy. Addressing these can prevent a single claim from wiping savings.",
+      "status": "critical",
+      "suggested_questions": [
+        "Can we get a $1M umbrella quote this week to compare cost vs. risk?",
+        "Would a term life top‑up that closes part of the $720,000 shortfall fit your budget?"
+      ],
+      "title": "Insurance gaps"
+    },
+    {
+      "bridge_status": "strained",
+      "expert_metrics": "Yearly retirement spending need: $89,648.57/yr; Guaranteed income (avg): $30,035.78/yr (covers 34% of need); Average yearly draw from savings in retirement: $59,612.79/yr; Savings and investments projected to run out at age 85 leaving $32,439 of planned spending unpaid; Investable assets today: $145,000; VTI position: $60,000 (~35% of investable assets); Tax‑inefficient holdings: $36,500 (including $15,000 JNK).",
+      "first_step": "Compare keeping the planned home vs. increasing retirement contributions by the required $20,231/yr to close the retirement gap, and confirm you keep the $7,000 employer match.",
+      "icon_type": "jubilacion",
+      "id": "isla_4",
+      "simple_summary": "Retirement at 58 leaves a funding gap; your portfolio mix is below target growth and withdrawals today are far above a sustainable rate. This is a medium‑term pressure to address after securing cash.",
+      "status": "warning",
+      "suggested_questions": [
+        "Do you prefer to prioritize retirement top‑up or securing the home purchase?",
+        "Should we rebalance toward your Growth profile now or after the home purchase is funded?"
+      ],
+      "title": "Retirement gap"
+    }
+  ],
+  "simulator": {
+    "action_label": "Cut annual withdrawals to $10,300 (sustainable target)",
+    "impact_explanation": "Cutting withdrawals to $10,300/year reaches the sustainable band and is the largest single move shown: it raises the published score from 26 to 62, reducing pressure on savings and extending your plan.",
+    "max_val": 2000,
+    "min_val": 0,
+    "recommended_val": 858,
+    "score_boost": 36,
+    "step_val": 1,
+    "target_island_index": 0,
+    "unit": "$/mes"
+  },
+  "welcome_intents": [
+    {
+      "label": "Hold cash for the 2027 home purchase",
+      "target_island_index": 0
+    },
+    {
+      "label": "Close protection gaps (life & umbrella)",
+      "target_island_index": 2
+    },
+    {
+      "label": "Reduce retirement risk and withdrawal pressure",
+      "target_island_index": 3
+    }
+  ]
+}

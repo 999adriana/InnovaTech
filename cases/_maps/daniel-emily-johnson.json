@@ -1,0 +1,104 @@
+{
+  "couple_perspectives": [
+    {
+      "custom_advice": "As a Growth investor, balance your desire to accelerate retirement savings with the immediate family protection gap. Start by obtaining term life quotes to close the large shortfall and confirm any employer 401(k) match; then channel remaining free cash into retirement contributions. Use clear steps and numbers to keep decisions collaborative.",
+      "focus_tag": "Security and long-term growth",
+      "member_name": "Daniel"
+    },
+    {
+      "custom_advice": "With a Moderate comfort level, prioritize shoring up the emergency reserve and household protection first, then build retirement contributions steadily. Confirm whether each employer offers a 401(k) match and preserve a monthly buffer from the $15,032 net cash flow so trade-offs feel controlled and predictable.",
+      "focus_tag": "Stability and steady progress",
+      "member_name": "Emily"
+    }
+  ],
+  "day3_widget": {
+    "message": "You have Accessible cash (bank accounts plus taxable money market) $19,000, covering 1.4 months of essentials. Today, get quotes for term life to reduce the $1,350,000 (Daniel) and $1,000,000 (Emily) shortfalls and request an umbrella quote for $1,000,000.",
+    "title": "Day 3 Reminder"
+  },
+  "family_label": "Johnson",
+  "family_name": "Daniel & Emily",
+  "headline": "Protect your family and build cash without delay",
+  "islands": [
+    {
+      "bridge_status": "cracked",
+      "expert_metrics": "Insurance and protection pillar score: 0. Daniel life cover: $250,000 (recommended $1,600,000–$2,400,000; shortfall $1,350,000). Emily life cover: $200,000 (recommended $1,200,000–$1,800,000; shortfall $1,000,000). Umbrella: No coverage (recommended $1,000,000). Top move: Add $1,166,000 of life cover (published score 52 → 57). Add $1,000,000 umbrella raises score to 56 when added alone.",
+      "first_step": "Request term-life quotes for both Daniel and Emily and a $1,000,000 umbrella quote; compare premiums and coverage gaps before reallocating free cash.",
+      "icon_type": "proteccion",
+      "id": "isla_1",
+      "simple_summary": "Life insurance and liability cover are the weakest links. No umbrella is in place and life cover is well below recommended levels for a household with two children and a mortgage.",
+      "status": "critical",
+      "suggested_questions": [
+        "Can we get term quotes that close most of the shortfall at affordable premiums?",
+        "Do our home and auto policies allow an umbrella to be added easily?"
+      ],
+      "title": "Family Protection"
+    },
+    {
+      "bridge_status": "strained",
+      "expert_metrics": "Accessible cash (bank accounts plus taxable money market): $19,000. Months of essential expenses accessible cash covers: 1.4 months. Recommended emergency reserve (8–9 months): min $106,860, max $120,217.5. Shortfall to base minimum: $87,860. Shortfall to adjusted minimum (including near-term goals): $92,360. Net cash flow this year: $15,032.01.",
+      "first_step": "Allocate part of your $15,032 net cash flow this year to a dedicated savings account and set an automated monthly transfer to start closing the emergency shortfall.",
+      "icon_type": "ahorros",
+      "id": "isla_2",
+      "simple_summary": "Accessible cash is very thin relative to recommended reserves. Building liquid savings reduces the chance that shocks hit high-cost debt or derail other goals.",
+      "status": "critical",
+      "suggested_questions": [
+        "How much of the $15,032 annual free cash do we want to funnel monthly into cash first?",
+        "Can we automate a monthly transfer to separate emergency cash from spending accounts?"
+      ],
+      "title": "Emergency Cash"
+    },
+    {
+      "bridge_status": "strained",
+      "expert_metrics": "Primary home value: $750,000. Primary home mortgage balance: $560,000 at 6.5% with monthly payment $4,100. Home equity: $190,000. Total debt balance: $618,000. Debt-to-income ratio: 27.25%. Chase Sapphire credit card balance: $18,000 at 24.9%, monthly payment $450, projected payoff January 2034 at current payments. Auto loan balance: $28,000 at 7.9%, monthly payment $620. Mortgage and debt payments together: housing-related obligations ~27.2% of income.",
+      "first_step": "Review the $18,000 credit card plan — consider whether a higher monthly payment or a lower-rate refinance/transfer fits alongside emergency and protection priorities.",
+      "icon_type": "vivienda",
+      "id": "isla_3",
+      "simple_summary": "Mortgage and other debts are large but currently manageable. The high-rate credit card is the costliest liability and could consume future cash if not accelerated.",
+      "status": "warning",
+      "suggested_questions": [
+        "Would increasing the card payment from $450 reduce interest enough without harming cash reserves?",
+        "Are there lower-rate consolidation options that preserve emergency liquidity?"
+      ],
+      "title": "Housing & Debt"
+    },
+    {
+      "bridge_status": "strained",
+      "expert_metrics": "Yearly retirement spending need (excluding estimated long-term care): $124,070.59. Guaranteed income in retirement (Social Security, annuities, pensions): $59,465.61 per year (covers 49% of need). Yearly retirement spending that income does not cover (to be paid from savings): $62,932.20. Savings and investments left at the end of the plan: $260,272.08. Current 401(k) balances: Daniel $150,000, Emily $100,000. Nothing recorded going into 401(k)s today. Each can contribute up to $24,500 a year to a 401(k). Extra retirement saving needed: about $34,165 per year to close the gap.",
+      "first_step": "Confirm whether each employer offers a 401(k) match and, if so, start contributions at least up to the match; then consider gradually increasing deferrals.",
+      "icon_type": "jubilacion",
+      "id": "isla_4",
+      "simple_summary": "Retirement is the largest long-term gap: nothing is going into your 401(k)s today. Closing the gap requires more than current free cash, so choices are needed about priorities.",
+      "status": "warning",
+      "suggested_questions": [
+        "Do our employers offer a 401(k) match, and what is the match formula?",
+        "Which monthly contribution level can we sustain after meeting protection and cash priorities?"
+      ],
+      "title": "Retirement Gap"
+    }
+  ],
+  "simulator": {
+    "action_label": "Add life cover (one-off amount)",
+    "impact_explanation": "Adding $1,166,000 of life cover moves your published score from 52 to 57 and materially reduces the life-insurance shortfall for the household, securing income replacement for your mortgage and children ahead of other trade-offs.",
+    "max_val": 1616000,
+    "min_val": 0,
+    "recommended_val": 1166000,
+    "score_boost": 5,
+    "step_val": 1000,
+    "target_island_index": 0,
+    "unit": "USD"
+  },
+  "welcome_intents": [
+    {
+      "label": "Strengthen life and liability protection",
+      "target_island_index": 0
+    },
+    {
+      "label": "Build an emergency cash reserve",
+      "target_island_index": 1
+    },
+    {
+      "label": "Plan retirement contributions together",
+      "target_island_index": 3
+    }
+  ]
+}

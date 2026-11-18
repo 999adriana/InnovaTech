@@ -17,9 +17,29 @@ load_dotenv()
 app = FastAPI(title="LifePath - Sherpas Hackathon")
 
 llm = OpenAI(
-    base_url=f"{os.environ['LLM_PROXY_URL'].rstrip('/')}/v1",
-    api_key=os.environ["TEAM_KEY"]
+    base_url=f"{os.environ.get('LLM_PROXY_URL', 'http://localhost').rstrip('/')}/v1",
+    api_key=os.environ.get("TEAM_KEY", "missing"),
+    timeout=90,
 )
+
+# Mapas de islas ya generados por la IA y guardados en disco: el enlace publico sigue
+# funcionando aunque la clave del modelo caduque (las cifras siempre salen de los datos).
+MAPS_DIR = Path("cases") / "_maps"
+
+
+def load_saved_map(case_id: str) -> dict | None:
+    f = MAPS_DIR / f"{case_id}.json"
+    if f.exists():
+        return json.loads(f.read_text(encoding="utf-8"))
+    return None
+
+
+def save_map(case_id: str, island_map: dict) -> None:
+    try:
+        MAPS_DIR.mkdir(parents=True, exist_ok=True)
+        (MAPS_DIR / f"{case_id}.json").write_text(json.dumps(island_map, ensure_ascii=False, indent=1), encoding="utf-8")
+    except OSError as e:
+        print(f"[INFO] No se pudo guardar el mapa de {case_id}: {e}")
 
 # Caché en memoria para respuestas instantáneas en la demo (0 ms tras la primera carga)
 RAW_DATA_CACHE: dict[str, dict] = {}
@@ -283,16 +303,22 @@ async def get_island_map(case_id: str, refresh: bool = Query(default=False)):
 
     user_payload = json.dumps(raw_data, ensure_ascii=False)[:32000]
 
-    response = llm.chat.completions.create(
-        model="gpt-5-mini",
-        response_format={"type": "json_object"},
-        messages=[
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_payload}
-        ]
-    )
-
-    result = json.loads(response.choices[0].message.content)
+    try:
+        response = llm.chat.completions.create(
+            model="gpt-5-mini",
+            response_format={"type": "json_object"},
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_payload}
+            ]
+        )
+        result = json.loads(response.choices[0].message.content)
+        save_map(case_id, result)
+    except Exception as e:
+        result = load_saved_map(case_id)
+        if result is None:
+            raise
+        print(f"[INFO] Usando el mapa guardado para {case_id} (LLM: {e})")
     financial_health = raw_data["financial_health"]
     financial_score = financial_health["score"]
     narrative = financial_health.get("narrative", {})
@@ -354,22 +380,26 @@ async def ask_island_question(req: AskRequest):
         if req.member_perspective else ""
     )
 
-    response = llm.chat.completions.create(
-        model="gpt-5-mini",
-        messages=[
-            {
-                "role": "system",
-                "content": (
-                    f"You are the assistant for this family's Sherpas financial plan report. You know the report in detail and you only answer questions about it. "
-                    f"The user is currently looking at: '{req.island_title}'. {perspective_note}"
-                    f"Answer in clear, warm, plain English (at most 4 sentences). Use ONLY the figures in the data below and quote them as the report labels them; "
-                    f"if the answer is not in the data, say so. Do not give personalised investment advice.\n\n"
-                    f"{json.dumps(raw_data, ensure_ascii=False)[:32000]}"
-                )
-            },
-            {"role": "user", "content": req.question}
-        ]
-    )
+    try:
+        response = llm.chat.completions.create(
+            model="gpt-5-mini",
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        f"You are the assistant for this family's Sherpas financial plan report. You know the report in detail and you only answer questions about it. "
+                        f"The user is currently looking at: '{req.island_title}'. {perspective_note}"
+                        f"Answer in clear, warm, plain English (at most 4 sentences). Use ONLY the figures in the data below and quote them as the report labels them; "
+                        f"if the answer is not in the data, say so. Do not give personalised investment advice.\n\n"
+                        f"{json.dumps(raw_data, ensure_ascii=False)[:32000]}"
+                    )
+                },
+                {"role": "user", "content": req.question}
+            ]
+        )
+    except Exception as e:
+        print(f"[INFO] Asistente no disponible: {e}")
+        return {"answer": "The assistant is not available right now. Every figure of your plan is still on the islands: open any island to see it."}
     return {"answer": response.choices[0].message.content}
 
 
